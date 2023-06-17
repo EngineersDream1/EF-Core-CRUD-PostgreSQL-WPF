@@ -26,11 +26,11 @@
             <TextBlock Text="id: " FontSize="28"/>
             <TextBox x:Name="idTxtBox" Text="" Width="150" Margin="5 0 5 0"
                      FontSize="28"/>
-            <TextBlock Text="login: " FontSize="28"/>
-            <TextBox x:Name="loginTxtBox" Width="150" Margin="5 0 5 0"
+            <TextBlock Text="name: " FontSize="28"/>
+            <TextBox x:Name="nameTxtBox" Width="150" Margin="5 0 5 0"
                      FontSize="28" Text=""/>
-            <TextBlock Text="password: " FontSize="28"/>
-            <TextBox x:Name="passwordTxtBox" Width="150" Margin="5 0 5 0"
+            <TextBlock Text="email: " FontSize="28"/>
+            <TextBox x:Name="emailTxtBox" Width="150" Margin="5 0 5 0"
                      FontSize="28" Text=""/>
         </StackPanel>
 
