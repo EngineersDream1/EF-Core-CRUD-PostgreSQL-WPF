@@ -22,7 +22,7 @@ namespace Entity_Framework_WPF.Model
             }
             set
             {
-                value = name;
+                name = value;
                 OnPropertyChanged("Name");
             }
         }
@@ -34,7 +34,7 @@ namespace Entity_Framework_WPF.Model
             }
             set
             {
-                value = email;
+                email =  value;
                 OnPropertyChanged("Email");
             }
         }

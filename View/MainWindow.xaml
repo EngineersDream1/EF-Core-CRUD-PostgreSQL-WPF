@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Entity_Framework_WPF"
+        xmlns:viewmodels="clr-namespace:Entity_Framework_WPF.ViewModel"
         mc:Ignorable="d"
         Title="EF_CRUD" Height="450" Width="800">
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -15,7 +19,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20">
             <Button x:Name="CreateBtn"  Width="150" Height="50" Content="Add" 
-                    FontFamily="Helvetica" FontSize="24"/>
+                    FontFamily="Helvetica" FontSize="24" Command="{Binding AddCommand}"/>
             <Button x:Name="UpdateBtn"  Width="150" Height="50" Content="Update" 
                     FontFamily="Helvetica" FontSize="24" Margin="40 0 40 0"/>
             <Button x:Name="RemoveBtn"  Width="150" Height="50" Content="Remove" 
@@ -28,13 +32,15 @@
                      FontSize="28"/>
             <TextBlock Text="name: " FontSize="28"/>
             <TextBox x:Name="nameTxtBox" Width="150" Margin="5 0 5 0"
-                     FontSize="28" Text=""/>
+                     FontSize="28" Text="{Binding NewUser.Name, 
+                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <TextBlock Text="email: " FontSize="28"/>
             <TextBox x:Name="emailTxtBox" Width="150" Margin="5 0 5 0"
-                     FontSize="28" Text=""/>
+                     FontSize="28" Text="{Binding NewUser.Email}"/>
         </StackPanel>
 
-        <DataGrid x:Name="tableDG" Margin="20" >
+        <DataGrid x:Name="tableDG" Margin="20" ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser}">
             <DataGrid.Columns>
 
             </DataGrid.Columns>

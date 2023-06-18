@@ -15,6 +15,7 @@ namespace Entity_Framework_WPF.ViewModel
     {
         //Экземпляр класса-контекста для взаимодействия с базой данных
         ApplicationContext applicationContext;
+
         //Выбранный пользователь
         private User selectedUser;
         public User SelectedUser
@@ -30,6 +31,21 @@ namespace Entity_Framework_WPF.ViewModel
             }
         }
 
+        //Экземпляр полльзователя для добавления в базу данных
+        private User newUser = new User();
+        public User NewUser
+        { 
+            get
+            {
+                return newUser;
+            }
+            set
+            {
+                newUser = value;
+                OnPropertyChange();
+            }
+        }
+
         //Коллекция пользовантелей полученных из базы данных, для привязки к DataGrid
         public ObservableCollection<User> Users { get; set; }
 
@@ -39,6 +55,45 @@ namespace Entity_Framework_WPF.ViewModel
             Users = new ObservableCollection<User>(applicationContext.Users);
             applicationContext.Dispose();
         }
+
+        //Реализация механизма добавления нового пользователя в базу данных
+        #region
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                if(addCommand == null)
+                {
+                    addCommand = new RelayCommand(
+                        param => AddNewItem());
+                }
+                return addCommand;
+            }            
+        }
+
+        private void AddNewItem()
+        {
+            using(applicationContext = new ApplicationContext())
+            {
+                applicationContext.Users.Add(
+                    new User()
+                    {
+                        Name = newUser.Name,
+                        Email= newUser.Email
+                    });
+                applicationContext.SaveChanges();
+
+                Users.Add(
+                    new User()
+                    {
+                        ID = applicationContext.Users.ToList().Last().ID,
+                        Name = newUser.Name,
+                        Email = newUser.Email
+                    });
+            }
+        }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChange([CallerMemberName] string propertyName = null)
