@@ -95,6 +95,36 @@ namespace Entity_Framework_WPF.ViewModel
         }
         #endregion
 
+        //Реализация механизма удаления выбраного в DataGrid пользователя из БД
+        #region
+        private RelayCommand removeCommand;
+        public RelayCommand RemoveCommand
+        {
+            get
+            {
+                if (removeCommand == null)
+                {
+                    removeCommand = new RelayCommand(
+                        param => RemoveItem());
+                }
+                return removeCommand;
+            }
+        }
+
+        private void RemoveItem()
+        {
+            using(applicationContext = new ApplicationContext())
+            {
+                if(SelectedUser != null)
+                {
+                    applicationContext.Users.Remove(SelectedUser);
+                    applicationContext.SaveChanges();
+                    Users.Remove(SelectedUser);
+                }                
+            }
+        }
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChange([CallerMemberName] string propertyName = null)
         {

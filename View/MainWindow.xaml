@@ -23,7 +23,7 @@
             <Button x:Name="UpdateBtn"  Width="150" Height="50" Content="Update" 
                     FontFamily="Helvetica" FontSize="24" Margin="40 0 40 0"/>
             <Button x:Name="RemoveBtn"  Width="150" Height="50" Content="Remove" 
-                    FontFamily="Helvetica" FontSize="24"/>
+                    FontFamily="Helvetica" FontSize="24" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
