@@ -16,6 +16,34 @@ namespace Entity_Framework_WPF.ViewModel
         //Экземпляр класса-контекста для взаимодействия с базой данных
         ApplicationContext applicationContext;
 
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChange("Name");
+            }
+        }
+
+        private string email;
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+                OnPropertyChange("Email");
+            }
+        }
+
         //Выбранный пользователь
         private User selectedUser;
         public User SelectedUser
@@ -44,7 +72,7 @@ namespace Entity_Framework_WPF.ViewModel
                 newUser = value;
                 OnPropertyChange();
             }
-        }
+        }        
 
         //Коллекция пользовантелей полученных из базы данных, для привязки к DataGrid
         public ObservableCollection<User> Users { get; set; }
@@ -79,8 +107,8 @@ namespace Entity_Framework_WPF.ViewModel
                 applicationContext.Users.Add(
                     new User()
                     {
-                        Name = newUser.Name,
-                        Email= newUser.Email
+                        Name = this.Name,
+                        Email= this.Email
                     });
                 applicationContext.SaveChanges();
 
@@ -88,8 +116,8 @@ namespace Entity_Framework_WPF.ViewModel
                     new User()
                     {
                         ID = applicationContext.Users.ToList().Last().ID,
-                        Name = newUser.Name,
-                        Email = newUser.Email
+                        Name = this.Name,
+                        Email = this.Email
                     });
             }
         }
@@ -122,6 +150,75 @@ namespace Entity_Framework_WPF.ViewModel
                     Users.Remove(SelectedUser);
                 }                
             }
+        }
+        #endregion
+
+        //Реализация механизма изменения данных выбраного в DataGrid пользователя
+        #region
+        private RelayCommand modifyCommand;
+        public RelayCommand ModifyCommand
+        {
+            get
+            {
+                if(modifyCommand == null)
+                {
+                    modifyCommand = new RelayCommand(
+                        param => ModifyItem());
+                }
+                return modifyCommand;
+            }
+        }
+
+        private void ModifyItem()
+        {
+            using(applicationContext = new ApplicationContext())
+            {
+                if(SelectedUser != null)
+                {                    
+                    var user = applicationContext.Users.FirstOrDefault(s => s.ID == SelectedUser.ID);                    
+
+                    if (user != null)
+                    {
+                        user.Name = this.Name;
+                        user.Email = this.Email;
+                        applicationContext.SaveChanges();
+                    }
+                    
+                    var userObservableCollection = Users.FirstOrDefault(s => s.ID == SelectedUser.ID);
+
+                    if (userObservableCollection != null)
+                    {
+                        userObservableCollection.Name = this.Name;
+                        userObservableCollection.Email = this.Email;
+                    }                    
+                }
+            }
+        }
+        #endregion
+
+        //Реализация обновления textBox's при выборе пользователя в DataGrid
+        #region
+        private RelayCommand updateTextBoxesCommand;
+        public RelayCommand UpdateTextBoxesCommand
+        {
+            get
+            {
+                if(updateTextBoxesCommand == null)
+                {
+                    updateTextBoxesCommand = new RelayCommand(
+                        param => UpdateTextBoxs());
+                }
+                return updateTextBoxesCommand;
+            }
+        }
+
+        private void UpdateTextBoxs()
+        {
+            if(SelectedUser != null)
+            {
+                this.Name = selectedUser.Name;
+                this.Email = selectedUser.Email;
+            }            
         }
         #endregion
 

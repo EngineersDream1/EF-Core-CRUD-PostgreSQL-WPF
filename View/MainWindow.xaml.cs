@@ -25,6 +25,6 @@ namespace Entity_Framework_WPF
         {
             InitializeComponent();
             MainViewModel mainViewModel = new MainViewModel();
-        }
+        }        
     }
 }
