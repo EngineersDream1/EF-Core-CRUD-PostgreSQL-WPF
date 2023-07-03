@@ -3146,3 +3146,421 @@ dbug: 01.07.2023 15:47:39.170 RelationalEventId.ConnectionClosed[20003] (Microso
       Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
 dbug: 01.07.2023 15:47:39.170 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
       'ApplicationContext' disposed.
+info: 03.07.2023 22:34:21.964 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.10 initialized 'ApplicationContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None
+dbug: 03.07.2023 22:34:21.975 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.183 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.184 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.186 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.190 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 03.07.2023 22:34:22.191 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (1ms).
+dbug: 03.07.2023 22:34:22.191 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.217 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.219 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: 03.07.2023 22:34:22.229 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+dbug: 03.07.2023 22:34:22.229 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.230 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.238 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()'
+dbug: 03.07.2023 22:34:22.297 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.ID (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Email (email, string), 1], [Property: User.Name (name, string), 2], }
+              SELECT u.ID, u.Email, u.Name
+              FROM Users AS u), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          Entity_Framework_WPF.DB_Context.ApplicationContext, 
+          False, 
+          False
+      )'
+dbug: 03.07.2023 22:34:22.306 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 03.07.2023 22:34:22.307 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 03.07.2023 22:34:22.307 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.307 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.307 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+info: 03.07.2023 22:34:22.308 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+dbug: 03.07.2023 22:34:22.317 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.327 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.327 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.327 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.328 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 03.07.2023 22:34:22.328 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.328 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.328 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.
+info: 03.07.2023 22:34:22.452 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.10 initialized 'ApplicationContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None
+dbug: 03.07.2023 22:34:22.452 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (0ms).
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.474 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: 03.07.2023 22:34:22.475 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+dbug: 03.07.2023 22:34:22.475 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.475 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+info: 03.07.2023 22:34:22.476 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+dbug: 03.07.2023 22:34:22.476 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.476 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.476 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.476 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.476 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:22.476 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.
+info: 03.07.2023 22:34:35.814 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.10 initialized 'ApplicationContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None
+dbug: 03.07.2023 22:34:35.825 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.035 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.036 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.037 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.042 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 03.07.2023 22:34:36.043 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (1ms).
+dbug: 03.07.2023 22:34:36.043 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.069 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.071 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: 03.07.2023 22:34:36.080 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+dbug: 03.07.2023 22:34:36.080 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.081 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.089 CoreEventId.QueryCompilationStarting[10111] (Microsoft.EntityFrameworkCore.Query) 
+      Compiling query expression: 
+      'DbSet<User>()'
+dbug: 03.07.2023 22:34:36.149 CoreEventId.QueryExecutionPlanned[10107] (Microsoft.EntityFrameworkCore.Query) 
+      Generated query execution expression: 
+      'queryContext => new SingleQueryingEnumerable<User>(
+          (RelationalQueryContext)queryContext, 
+          RelationalCommandCache.SelectExpression(
+              Projection Mapping:
+                  EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.ID (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.Email (email, string), 1], [Property: User.Name (name, string), 2], }
+              SELECT u.ID, u.Email, u.Name
+              FROM Users AS u), 
+          Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+          Entity_Framework_WPF.DB_Context.ApplicationContext, 
+          False, 
+          False
+      )'
+dbug: 03.07.2023 22:34:36.158 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 03.07.2023 22:34:36.158 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 03.07.2023 22:34:36.158 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.158 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.158 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+info: 03.07.2023 22:34:36.159 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+dbug: 03.07.2023 22:34:36.168 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.178 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.178 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.178 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.179 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 03.07.2023 22:34:36.179 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.179 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.179 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.
+info: 03.07.2023 22:34:36.285 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.10 initialized 'ApplicationContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None
+dbug: 03.07.2023 22:34:36.285 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (0ms).
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.307 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: 03.07.2023 22:34:36.308 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.308 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+info: 03.07.2023 22:34:36.308 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT u."ID", u."Email", u."Name"
+      FROM "Users" AS u
+dbug: 03.07.2023 22:34:36.309 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.309 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.309 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.309 CoreEventId.StartedTracking[10806] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      Context 'ApplicationContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+dbug: 03.07.2023 22:34:36.309 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 03.07.2023 22:34:36.309 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.309 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'usersdb' on server 'tcp://localhost:5432'.
+dbug: 03.07.2023 22:34:36.309 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'ApplicationContext' disposed.
